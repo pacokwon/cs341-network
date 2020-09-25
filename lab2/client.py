@@ -10,17 +10,10 @@ def compute_checksum(msg):
 
     # loop taking 2 characters at a time
     for i in range(0, len(msg), 2):
-        if (i + 1) < len(msg):
-            a = msg[i]
-            b = msg[i + 1]
-            s = s + (a + (b << 8))
-        elif (i + 1) == len(msg):
-            s += msg[i]
-        else:
-            raise "Something Wrong here"
+        s += msg[i] + (msg[i + 1] << 8)
 
     # One's Complement
-    s = s + (s >> 16)
+    s = (s & 0xFFFF) + (s >> 16)
     s = ~s & 0xFFFF
 
     return s
