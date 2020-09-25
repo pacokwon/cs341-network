@@ -52,13 +52,49 @@ def get_header(flag, keyword, sid, data):
     return header
 
 
+def get_response(client, decipher=True):
+    """
+    read header and data from the socket server, following the protocol
+
+    :param client   : client socket connected to the host
+    :param decipher : whether or not the data should be deciphered or not
+    :type client    : socket.socket
+    :type decipher  : bool
+    :return         : decrypted data
+    :rtype          : str
+    """
+    response = client.recv(16)
+    flag, _, keyword, sid, length = struct.unpack("!HH4sll", response)
+
+    message_length = length - 16
+    data = client.recv(message_length, socket.MSG_WAITALL)
+    key = (message_length // len(keyword)) * keyword + keyword[
+        : (message_length % len(keyword))
+    ]
+
+    decrypted = "".join([chr(d ^ k) for d, k in zip(data, key)]) if decipher else data
+
+    return flag, keyword, sid, decrypted
+
+
 def run(host, port, sid):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((host, port))
 
-        fields = {"data": "hi", "flag": 1, "keyword": b"paco", "sid": 20190046}
+        fields = {"data": "hello cs341", "flag": 1, "keyword": b"sbmt", "sid": sid}
         header = get_header(**fields)
         client.send(header)
+
+        flag = 0
+        while flag == 0:
+            flag, keyword, sid, decrypted = get_response(client)
+            header = get_header(flag, keyword, sid, decrypted)
+            client.send(header)
+
+        flag, keyword, sid, decrypted = get_response(client, decipher=False)
+        print(
+            f"KEY: {keyword.decode('utf-8')}\nScore: {sid}\nMessage: {decrypted.decode('utf-8')}"
+        )
 
 
 if __name__ == "__main__":
