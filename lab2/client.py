@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+client.py file for task 1 of Practice #2
+"""
+
 import argparse
 import array
 import collections
