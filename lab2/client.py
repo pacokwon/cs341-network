@@ -6,17 +6,25 @@ import struct
 
 
 def compute_checksum(msg):
-    s = 0  # Binary Sum
+    """
+    compute checksum of given message
 
-    # loop taking 2 characters at a time
+    :param msg: message whose checksum is deisred to be computed
+    :type msg: bytes
+    :return: computed checksum
+    :rtype: int
+    """
+    checksum = 0
     for i in range(0, len(msg), 2):
-        s += msg[i] + (msg[i + 1] << 8)
+        if (i + 1) == len(msg):
+            checksum += msg[i]
+        else:
+            checksum += msg[i] + (msg[i + 1] << 8)
 
-    # One's Complement
-    s = (s & 0xFFFF) + (s >> 16)
-    s = ~s & 0xFFFF
+    checksum = (checksum & 0xFFFF) + (checksum >> 16)
+    checksum = ~checksum & 0xFFFF
 
-    return s
+    return checksum
 
 
 def get_header(flag, keyword, sid, data):
