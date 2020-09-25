@@ -19,47 +19,24 @@ def compute_checksum(msg):
     return s
 
 
-def get_checksum(header, data, source_ip, destination_ip):
-    source_address = socket.inet_aton(source_ip)
-    destination_address = socket.inet_aton(destination_ip)
-    placeholder = 0
-    protocol = socket.IPPROTO_TCP
-    tcp_length = len(header) + len(data)
+def get_header(flag, keyword, sid, data):
+    checksum = 0
+    data = bytes(data)
+    length = 16 + len(data)
 
-    pseudo_header = struct.pack(
-        "!4s4sBBH",
-        source_address,
-        destination_address,
-        placeholder,
-        protocol,
-        tcp_length,
-    )
-
-    pseudo_header = pseudo_header + header + data
-    print(pseudo_header)
-    return compute_checksum(pseudo_header)
+    pseudo_header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length)
+    checksum = compute_checksum(pseudo_header + data)
+    header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length) + data
+    return header
 
 
 def run(host, port, sid):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((host, port))
-        data = b"hello world"
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+        client.connect((host, port))
 
-        flag = 1
-        checksum = 0
-        keyword = b"paco"
-        sid = 20190046
-        length = 64 * 2 + len(data)
-
-        header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length)
-        checksum = get_checksum(header, data, "127.0.0.1", host)
-        print(checksum)
-        header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length) + data
-
-        s.send(header)
-
-        res = s.recv(1024)
-        print(res)
+        fields = {"data": "hi", "flag": 1, "keyword": b"paco", "sid": 20190046}
+        header = get_header(**fields)
+        client.send(header)
 
 
 if __name__ == "__main__":
