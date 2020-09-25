@@ -28,8 +28,22 @@ def compute_checksum(msg):
 
 
 def get_header(flag, keyword, sid, data):
+    """
+    construct header from various given fields
+
+    :param flag     : flag, as required from the protocol specs
+    :param keyword  : keyword, as required from the protocol specs
+    :param sid      : sid, as required from the protocol specs
+    :param data     : data desired to be sent
+    :type flag      : 0 | 1
+    :type keyword   : bytes
+    :type sid       : int
+    :type data      : str
+    :return         : constructed header
+    :rtype          : bytes
+    """
     checksum = 0
-    data = bytes(data)
+    data = bytes(data, "utf-8")
     length = 16 + len(data)
 
     pseudo_header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length)
