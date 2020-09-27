@@ -4,8 +4,6 @@ import socket
 import re
 import uuid
 
-clients = {}
-
 
 def fibonacci(n):
     """
@@ -49,6 +47,7 @@ def main(ip="127.0.0.1", port=1234):
     server.listen()
 
     sockets = [server]
+    clients = {}
 
     while True:
         readables, _, _ = select.select(sockets, [], [])
@@ -64,18 +63,21 @@ def main(ip="127.0.0.1", port=1234):
 
             res = sock.recv(4).decode("utf-8")  # Get the first 4 byte sequences
             if res == "FIBO":
+                # handle fibonacci
                 sock.recv(5)  # throw away the rest
-                n = int(sock.recv(10).decode("utf-8"))
+                n = int(sock.recv(1).decode("utf-8"))
                 answer = fibonacci(n)
                 print(f"{clients[sock]}\tFibonacci:\tReceived {n}. Sending {answer}")
                 sock.send(f"{str(answer)}_{clients[sock]}".encode("utf-8"))
             elif res == "FILE":
+                # handle file
                 length = int(sock.recv(6).decode("utf-8"))
                 file = sock.recv(length, socket.MSG_WAITALL).decode("utf-8")
                 answer = len(file.split(" "))
                 print(f"{clients[sock]}\tFile:\tReceived file. Sending {answer}")
                 sock.send(f"{str(answer)}_{clients[sock]}".encode("utf-8"))
             elif res == "FACT":
+                # handle factorial
                 sock.recv(5)  # throw away the rest
                 n = int(sock.recv(1).decode("utf-8"))
                 answer = factorial(n)
