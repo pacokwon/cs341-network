@@ -6,7 +6,6 @@ client.py file for task 1 of Practice #2
 """
 
 import argparse
-import array
 import collections
 import socket
 import struct
@@ -34,7 +33,7 @@ def compute_checksum(msg):
     return checksum
 
 
-def get_header(flag, keyword, sid, data):
+def get_header(flag, keyword, sid, data=""):
     """
     construct header from various given fields
 
@@ -88,7 +87,7 @@ def run(host, port, sid):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((host, port))
 
-        fields = {"data": "hello cs341", "flag": 1, "keyword": b"sbmt", "sid": sid}
+        fields = {"flag": 1, "keyword": b"sbmt", "sid": sid}
         header = get_header(**fields)
         client.send(header)
 
