@@ -26,15 +26,15 @@ def fibonacci(n):
 
 def factorial(n):
     """
-    compute !n
+    compute n!
 
     :param n: operand to factorial operator
     :type n: int
-    :return: !n
+    :return: n!
     :rtype: int
     """
     if n == 0:
-        return 0
+        return 0  # client recognizes 0! as 0
     if n == 1:
         return 1
     return n * factorial(n - 1)
