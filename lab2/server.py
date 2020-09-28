@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+server.py file task 2 of Practice #2
+"""
+
 import argparse
 import select
 import socket
