@@ -52,8 +52,8 @@ def get_header(flag, keyword, sid, data=""):
     data = bytes(data, "utf-8")
     length = 16 + len(data)
 
-    pseudo_header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length)
-    checksum = compute_checksum(pseudo_header + data)
+    pseudo_header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length) + data
+    checksum = compute_checksum(pseudo_header)
     header = struct.pack("!HH4sll", flag, checksum, keyword, sid, length) + data
     return header
 
