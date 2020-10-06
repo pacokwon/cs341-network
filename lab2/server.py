@@ -8,7 +8,6 @@ server.py file task 2 of Practice #2
 import argparse
 import select
 import socket
-import re
 import uuid
 
 
