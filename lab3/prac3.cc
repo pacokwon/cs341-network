@@ -23,7 +23,7 @@
 #include "ns3/network-module.h"
 #include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
-#include "ns3/applicaions-module.h"
+#include "ns3/applications-module.h"
 #include "ns3/tcp-socket-state.h"
 
 using namespace ns3;
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
   cmd.Parse(argc, argv);
 
   /* Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue("ns3::TcpVeno")); */
-  Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue("ns3::TcpYeah"));
+  /* Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue("ns3::TcpYeah")); */
 
   NS_LOG_INFO("Create nodes.");
   NodeContainer c;
@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
   NetDeviceContainer d1d0 = p2p.Install(n1n0); // link between node 0 and node 1
 
   // error rate for first link
-  Config::SetDefault("ns3::RateErrorModel::ErrorRate", DoubleValue(1e-1));
+  Config::SetDefault("ns3::RateErrorModel::ErrorRate", DoubleValue(1e-6));
   Config::SetDefault("ns3::RateErrorModel::ErrorUnit", StringValue("ERROR_UNIT_PACKET"));
   ObjectFactory factory;
   factory.SetTypeId("ns3::RateErrorModel");
@@ -301,7 +301,7 @@ int main(int argc, char *argv[])
 
   Ptr<Socket> ns3TcpSocket3 = Socket::CreateSocket(c.Get(4), TcpSocketFactory::GetTypeId());
   Ptr<MyApp> app3 = CreateObject<MyApp>();
-  app3->Setup(ns3TcpSocket3, sinkAddress3, 1000, 25000, DataRate("1Mbps"));
+  app3->Setup(ns3TcpSocket3, sinkAddress3, 1000, 5000, DataRate("1Mbps"));
   c.Get(4)->AddApplication(app3);
   app3->SetStartTime(Seconds(30.)); //app starts at t=30s
   app3->SetStopTime(Seconds(120.));
@@ -310,33 +310,33 @@ int main(int argc, char *argv[])
 
   Simulator::Schedule(Seconds(1.1),
                       &ReceivedBytes1,
-                      asciiTraceHelper.CreateFileStream("output/tmp/app1.rx"));
+                      asciiTraceHelper.CreateFileStream("output/task1_4/app1.rx"));
 
   Simulator::Schedule(Seconds(15.1),
                       &ReceivedBytes2,
-                      asciiTraceHelper.CreateFileStream("output/tmp/app2.rx"));
+                      asciiTraceHelper.CreateFileStream("output/task1_4/app2.rx"));
 
   Simulator::Schedule(Seconds(30.1),
                       &ReceivedBytes3,
-                      asciiTraceHelper.CreateFileStream("output/tmp/app3.rx"));
+                      asciiTraceHelper.CreateFileStream("output/task1_4/app3.rx"));
 
   ns3TcpSocket1->TraceConnectWithoutContext(
       "CongestionWindow",
       MakeBoundCallback(
           &NotifyChange,
-          asciiTraceHelper.CreateFileStream("output/tmp/app1.cwnd")));
+          asciiTraceHelper.CreateFileStream("output/task1_4/app1.cwnd")));
 
   ns3TcpSocket2->TraceConnectWithoutContext(
       "CongestionWindow",
       MakeBoundCallback(
           &NotifyChange,
-          asciiTraceHelper.CreateFileStream("output/tmp/app2.cwnd")));
+          asciiTraceHelper.CreateFileStream("output/task1_4/app2.cwnd")));
 
   ns3TcpSocket3->TraceConnectWithoutContext(
       "CongestionWindow",
       MakeBoundCallback(
           &NotifyChange,
-          asciiTraceHelper.CreateFileStream("output/tmp/app3.cwnd")));
+          asciiTraceHelper.CreateFileStream("output/task1_4/app3.cwnd")));
 
   ns3TcpSocket1->TraceConnectWithoutContext(
       "SlowStartThreshold",
