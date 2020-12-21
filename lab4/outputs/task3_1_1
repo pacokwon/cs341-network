@@ -1,0 +1,8 @@
+Creating 6 nodes.
+Starting simulation for 100 s ...
+Traceroute to 10.0.0.6, 30 hops Max, 56 bytes of data.
+1 10.0.0.3 264 ms 0 ms 0 ms
+2 10.0.0.5 1 ms 1 ms 1 ms
+3 10.0.0.6 10 ms 2 ms 2 ms
+
+Trace Complete

@@ -1,0 +1,34 @@
+output log of CTS/RTS disabled simulation
+
+Flow ID: 1 Src Addr 10.1.1.57 Dst Addr 10.1.1.8
+Tx Packets = 2930
+Rx Packets = 0
+Throughput: -0 Kbps
+Flow ID: 2 Src Addr 10.1.1.17 Dst Addr 10.1.1.24
+Tx Packets = 4489
+Rx Packets = 18
+Throughput: 50.7227 Kbps
+Flow ID: 3 Src Addr 10.1.1.41 Dst Addr 10.1.1.48
+Tx Packets = 5626
+Rx Packets = 0
+Throughput: -0 Kbps
+Flow ID: 4 Src Addr 10.1.1.1 Dst Addr 10.1.1.64
+Tx Packets = 4257
+Rx Packets = 0
+Throughput: -0 Kbps
+Flow ID: 5 Src Addr 10.1.1.59 Dst Addr 10.1.1.3
+Tx Packets = 4749
+Rx Packets = 0
+Throughput: -0 Kbps
+Flow ID: 6 Src Addr 10.1.1.6 Dst Addr 10.1.1.62
+Tx Packets = 5628
+Rx Packets = 53
+Throughput: 14.0409 Kbps
+Flow ID: 7 Src Addr 10.1.1.27 Dst Addr 10.1.1.54
+Tx Packets = 5735
+Rx Packets = 0
+Throughput: -0 Kbps
+Flow ID: 8 Src Addr 10.1.1.14 Dst Addr 10.1.1.52
+Tx Packets = 3117
+Rx Packets = 11
+Throughput: 3.15391 Kbps

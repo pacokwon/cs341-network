@@ -1,0 +1,7 @@
+Flow 2 (10.0.0.1 -> 10.0.0.2)
+  Tx Packets: 2410
+  Tx Bytes:   3441480
+  TxOffered:  3.05909 Mbps
+  Rx Packets: 2268
+  Rx Bytes:   3238704
+  Throughput: 2.87885 Mbps

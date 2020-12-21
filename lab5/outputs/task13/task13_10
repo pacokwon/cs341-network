@@ -1,0 +1,13 @@
+Waf: Entering directory `/home/paco/workspace/build'
+[1864/1907] Compiling scratch/prac5_task1.cc
+[1868/1907] Linking build/scratch/prac5_task1
+Waf: Leaving directory `/home/paco/workspace/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (2.556s)
+Flow 2 (10.0.0.1 -> 10.0.0.2)
+  Tx Packets: 2410
+  Tx Bytes:   3441480
+  TxOffered:  3.05909 Mbps
+  Rx Packets: 2410
+  Rx Bytes:   3441480
+  Throughput: 3.05909 Mbps

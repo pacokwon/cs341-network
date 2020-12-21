@@ -1,0 +1,11 @@
+Waf: Entering directory `/home/paco/workspace/build'
+Waf: Leaving directory `/home/paco/workspace/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.595s)
+Flow 2 (10.0.0.1 -> 10.0.0.2)
+  Tx Packets: 2410
+  Tx Bytes:   3441480
+  TxOffered:  3.05909 Mbps
+  Rx Packets: 2389
+  Rx Bytes:   3411492
+  Throughput: 3.03244 Mbps
